@@ -1,3 +1,4 @@
+/*
 import fetch from "node-fetch";
 
 // Illustrating the benefits of async operations.
@@ -17,3 +18,26 @@ for (let i = 0; i < config.count; i++) {
 }
 
 console.log("Done... ?");
+*/
+
+// Using the Ticker class to have code executed at specific, adjustable rates.
+
+import Ticker from "./Ticker.js";
+
+function doStuff() {
+  process.stdout.write("+");
+}
+
+// Create a new Ticker to call doStuff with default properties (10 ticks per second) and start it.
+const ticker = new Ticker({ functionToCall: doStuff });
+ticker.start();
+
+// Set a timer to quadruple the ticker rate after 1 second (1000 milliseconds).
+setTimeout(() => {
+  ticker.rate = 40;
+}, 1000);
+
+// Set a timer to stop the ticker after 2 seconds.
+setTimeout(() => {
+  ticker.stop();
+}, 2000);
