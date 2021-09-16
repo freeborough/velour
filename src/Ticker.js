@@ -22,6 +22,9 @@ export default class Ticker {
     return this.rate;
   }
 
+  // TODO: Be more precise about fractional results.
+  // TODO: Do we want to handle a rate greater than 1000 here, or in a class that uses this class? setInterval cannot
+  //       accept a duration < 1 (ms).
   calculateInterval() {
     return 1000 / this._rate;
   }
