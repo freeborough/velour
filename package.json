@@ -1,0 +1,26 @@
+{
+  "name": "velour",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Simple and effective load testing and performance analysis tool/framework.",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "node src/index.js",
+    "lab": "node src/lab.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/freeborough/velour.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/freeborough/velour/issues"
+  },
+  "homepage": "https://github.com/freeborough/velour#readme",
+  "dependencies": {
+    "node-fetch": "^3.0.0"
+  },
+  "devDependencies": {}
+}
