@@ -2,11 +2,11 @@ export default class Ticker {
   _rate;
   _tickTimer;
   _running = false;
-  functionToCall;
+  toCall;
   
 
   constructor(args) {
-    this.functionToCall = args.functionToCall || null;
+    this.toCall = args.toCall || null;
     this._rate = args.rate | 10;
   }
 
@@ -37,7 +37,7 @@ export default class Ticker {
   start() {
     if (!this._running) {
       this._running = true;
-      this._tickTimer = setInterval(this.functionToCall, this.calculateInterval());
+      this._tickTimer = setInterval(this.toCall, this.calculateInterval());
     } else {
       console.error("ERROR: Ticker has already started.");
     }

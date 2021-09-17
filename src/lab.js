@@ -29,7 +29,7 @@ function doStuff() {
 }
 
 // Create a new Ticker to call doStuff with default properties (10 ticks per second) and start it.
-const ticker = new Ticker({ functionToCall: doStuff });
+const ticker = new Ticker({ toCall: doStuff });
 ticker.start();
 
 // Set a timer to quadruple the ticker rate after 1 second (1000 milliseconds).
