@@ -1,8 +1,9 @@
 export default class Ticker {
   _rate;
-  _timer;
+  _tickTimer;
+  _running = false;
   functionToCall;
-  started = false;
+  
 
   constructor(args) {
     this.functionToCall = args.functionToCall || null;
@@ -12,7 +13,7 @@ export default class Ticker {
   set rate(rate) {
     this._rate = rate;
 
-    if (this.started) {
+    if (this._running) {
       this.stop();
       this.start();
     }
@@ -20,6 +21,10 @@ export default class Ticker {
 
   get rate() {
     return this.rate;
+  }
+
+  get running() {
+    return this._running;
   }
 
   // TODO: Be more precise about fractional results.
@@ -30,18 +35,18 @@ export default class Ticker {
   }
 
   start() {
-    if (!this.started) {
-      this.started = true;
-      this._timer = setInterval(this.functionToCall, this.calculateInterval());
+    if (!this._running) {
+      this._running = true;
+      this._tickTimer = setInterval(this.functionToCall, this.calculateInterval());
     } else {
       console.error("ERROR: Ticker has already started.");
     }
   }
 
   stop() {
-    if (this.started) {
-      clearInterval(this._timer);
-      this.started = false;
+    if (this._running) {
+      clearInterval(this._tickTimer);
+      this._running = false;
     } else {
       console.error("ERROR: Ticker has alerady stopped.");
     }
