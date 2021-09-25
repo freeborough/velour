@@ -1,13 +1,15 @@
 export default class Ticker {
   _rate;
   _tickTimer;
+  _mainTimer;
   _running = false;
+  _duration;
   toCall;
-  
 
   constructor(args) {
     this.toCall = args.toCall || null;
-    this._rate = args.rate | 10;
+    this._rate = args.rate || 10;
+    this._duration = args.duration || 1;
   }
 
   set rate(rate) {
@@ -36,6 +38,7 @@ export default class Ticker {
 
   start() {
     if (!this._running) {
+      this._mainTimer = setTimeout(this.stop.bind(this), this._duration * 1000);
       this._running = true;
       this._tickTimer = setInterval(this.toCall, this.calculateInterval());
     } else {
@@ -46,6 +49,7 @@ export default class Ticker {
   stop() {
     if (this._running) {
       clearInterval(this._tickTimer);
+      clearTimeout(this._mainTimer);
       this._running = false;
     } else {
       console.error("ERROR: Ticker has alerady stopped.");
