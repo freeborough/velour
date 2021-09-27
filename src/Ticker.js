@@ -20,8 +20,8 @@ export default class Ticker {
 
   start() {
     if (!this._running) {
-      this._deltaLoop = new DeltaLoop(() => {
-        this.toCall();
+      this._deltaLoop = new DeltaLoop((dt) => {
+        this.toCall(dt);
       });
 
       this._mainTimer = setTimeout(this.stop.bind(this), this._duration * 1000);
@@ -37,7 +37,7 @@ export default class Ticker {
       this._deltaLoop.stop();
       clearTimeout(this._mainTimer);
       this._running = false;
-      
+
       if (this.onStop != null) {
         this.onStop();
       }

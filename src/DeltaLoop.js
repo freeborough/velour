@@ -1,4 +1,8 @@
+import { hrtime } from "process";
+
 export default class DeltaLoop {
+  _lastLoop = 0n;
+  _current = 0n;
   running = false;
 
   constructor(callback) {
@@ -7,6 +11,7 @@ export default class DeltaLoop {
 
   start() {
     this.running = true;
+    this._lastLoop = hrtime.bigint();
     this.loop();
   }
 
@@ -17,9 +22,11 @@ export default class DeltaLoop {
   loop() {
     if(this.running) {
       setImmediate(() => {
-        this.callback();
+        this._current = hrtime.bigint();
+        this.callback(this._current - this._lastLoop);
+        this._lastLoop = this._current;
         this.loop();
-      })
+      });
     }
   }
 }
