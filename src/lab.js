@@ -24,15 +24,19 @@ console.log("Done... ?");
 
 import Ticker from "./Ticker.js";
 
+
+var count = 0;
 function doStuff() {
-  process.stdout.write("+");
+  ++count;
 }
 
 // Create a new Ticker to call doStuff with default properties (10 ticks per second) and start it.
-const ticker = new Ticker({ toCall: doStuff, duration: 1 });
-ticker.start();
+const ticker = new Ticker({
+  toCall: doStuff,
+  duration: 1,
+  onStop: () => {
+    console.log(`Done!  Ticked ${count} times, which is nice.`);
+  }
+});
 
-// Set a timer to quadruple the ticker rate after 1 second (1000 milliseconds).
-setTimeout(() => {
-  ticker.rate = 40;
-}, 1000);
+ticker.start();
