@@ -1,19 +1,16 @@
-import Ticker from "./Ticker.js";
+import DeltaLoop from "./DeltaLoop.js";
 
 var count = 0;
-var deltaTime = 0n;
-function doStuff(dt) {
-  ++count;
-  deltaTime += dt;
+function doCount() {
+  count++;
 }
 
-// Create a new Ticker to call doStuff with default properties (10 ticks per second) and start it.
-const ticker = new Ticker({
-  toCall: doStuff,
-  duration: 5,
-  onStop: () => {
-    console.log(`Done!  Ticked ${count} times, averaging ${deltaTime/BigInt(count)} nanoseconds per tick, which is nice.`);
-  }
-});
+const deltaLoop = new DeltaLoop(doCount);
 
-ticker.start();
+setTimeout(() => {
+  deltaLoop.stop();
+  console.log(`We completed ${count} iterations.`);
+  process.exit(0);
+}, 1000);
+
+deltaLoop.start();
